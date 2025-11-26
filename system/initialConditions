@@ -1,0 +1,108 @@
+Lpp 17;
+Bwl 4.62;
+D 1.5;
+T 1.01;
+U 3.874183785005559;
+rhof 1025;
+nuf 1.0034e-06;
+knun 0.01;
+omegak 10;
+nProcess 4;
+CdGx 5.87;
+Iyy 262357.8125;
+mass 14525.0;
+max_c 1500000;
+c 1;
+endTimeSim 100;
+deltaTime 0.001;
+maxCo 10;
+maxAlphaCo 5;
+maxDeltaT 0.025;
+k1 2.5;
+k2 5.5;
+k3 3;
+k4 3;
+k5 1.5;
+k6 0.15;
+
+//Base cell size
+dx #calc"0.25*$Lpp"; //Change multiplication factor
+//dz #calc"0.08*$D";
+
+L1 #calc"$k1*$Lpp";
+L2 #calc"-$k2*$Lpp";
+B1 #calc"$k3*$Lpp";
+B2 #calc"-$k3*$Lpp";
+D1 #calc"-$k4*$Lpp";
+D2 #calc"$k5*$Lpp";
+D3 #calc"$k6*$Lpp";
+D4 #calc"-$k6*$Lpp";
+D5 0.05;
+D6 -0.05;
+
+Nx #calc"int(round(($L1-1*$L2)/($dx)))";
+Ny #calc"int(round(2*$B1/$dx))";
+Nz #calc"int(round($D2-1*$D1/($dx)))"; //delta z bottom
+
+//Box0 refinement
+l3 #calc"2.0*$Lpp";
+l4 #calc"-2.0*$Lpp";
+b3 #calc"0.9*$Lpp";
+b4 #calc"-1.0*$b3";
+z3 #calc"0.3*$Lpp";
+z4 #calc"-1.0*$z3";
+
+//Box1 refinement
+l5 #calc"1.871*$Lpp";
+l6 #calc"-1.383*$Lpp";
+b5 #calc"0.7*$Lpp";
+b6 #calc"-1.0*$b3";
+z5 #calc"0.172*$Lpp";
+z6 #calc"-1.2*$z5";
+
+//free surface refinement
+zf2 #calc"-0.5*$T";
+zf #calc"0.5*$T";
+
+//Box2 refinement
+l7 #calc"1.496*$Lpp";
+l8 #calc"-0.879*$Lpp";
+b7 #calc"0.5*$Lpp";
+b8 #calc"-1.0*$b3";
+z7 #calc"0.126*$Lpp";
+z8 #calc"-1.2*$z7";
+
+
+//Box3 refinement
+l9 #calc"1.2*$Lpp";
+l10 #calc"-0.25*$Lpp";
+b9 #calc"0.3*$Lpp";
+b10 #calc"-1.0*$b3";
+z9 #calc"0.083*$Lpp";
+z10 #calc"-1.2*$z9";
+
+
+//Bow refinement
+lbow #calc"$Lpp-0.08*$Lpp";
+bbow #calc"-0.5*$Bwl";
+zbow #calc"-1.2*$T";
+lbow2 #calc"$Lpp+0.05*$Lpp";
+bbow2 #calc"0.5*$Bwl";
+zbow2 #calc"0.6*$T";
+
+
+//Aft refinement
+laft #calc"-0.05*$Lpp";
+baft #calc"-0.5*$Bwl";
+zaft #calc"-1.0*$T";
+laft2 #calc"0.15*$Lpp";
+baft2 #calc"0.5*$Bwl";
+zaft2 #calc"0.5*$T";
+
+
+
+// Mesh selection
+// ~~~~~~~~~~~~~~
+Lmesh #calc"0.5+$dx+$L2";
+Bmesh #calc"-0.5*$dx+$B1" ;
+Dmesh #calc"0.5*$dx+$D1";
