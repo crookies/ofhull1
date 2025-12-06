@@ -67,19 +67,4 @@ functions
 	}
 };
 
-PIMPLE
-{
-    momentumPredictor no;
-
-    nOuterCorrectors 3;
-    nCorrect
-// filepath: system/fvSolution
-// ...existing code...
-PIMPLE
-{
-    momentumPredictor no;
-
-    nOuterCorrectors 3;
-    nCorrect
-// ...existing code...
 // ************************************************************************* //
