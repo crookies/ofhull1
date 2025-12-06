@@ -6,9 +6,12 @@ cd "${0%/*}" || exit                                # Run from this directory
 # Make 3D mesh in slab of cells.
     runApplication blockMesh
 
+    runApplication surfaceFeatureExtract
+
     runApplication snappyHexMesh -overwrite
 
 # Generate free surface and run the transient case
+    cp 0/alpha.water.orig 0/alpha.water
 
     runApplication setFields
 
