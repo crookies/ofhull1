@@ -20,7 +20,7 @@ solvers
     "alpha.water.*"
     {
         nAlphaCorr      3;
-        nAlphaSubCycles 1;
+        nAlphaSubCycles 3;    // Changed from 1 to 3 for better interface stability
         cAlpha          1;
         icAlpha         0;
 
@@ -88,7 +88,7 @@ PIMPLE
 {
     momentumPredictor no;
 
-    nOuterCorrectors 1;
+    nOuterCorrectors 3;
     nCorrectors      3;
     nNonOrthogonalCorrectors 1;
 

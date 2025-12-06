@@ -45,9 +45,9 @@ runTimeModifiable yes;
 
 adjustTimeStep  yes;
 
-maxCo           10;
-maxAlphaCo      5;
-maxDeltaT       0.022;
+maxCo           0.5;
+maxAlphaCo      0.5;
+maxDeltaT       0.022;  // (L/U) * 200
  
 functions
 {
@@ -67,4 +67,19 @@ functions
 	}
 };
 
+PIMPLE
+{
+    momentumPredictor no;
+
+    nOuterCorrectors 3;
+    nCorrect
+// filepath: system/fvSolution
+// ...existing code...
+PIMPLE
+{
+    momentumPredictor no;
+
+    nOuterCorrectors 3;
+    nCorrect
+// ...existing code...
 // ************************************************************************* //
