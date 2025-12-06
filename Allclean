@@ -1,0 +1,14 @@
+#!/bin/sh
+
+rm -r [1-9]*
+rm -r 0.[0-9]*
+rm -r processor*
+rm -r postProcessing
+
+rm -r ./0/polyMesh/
+rm -r ./constant/polyMesh/
+
+foamCleanPolyMesh
+
+rm -f log.*
+rm -f ./constant/triSurface/*.eMesh

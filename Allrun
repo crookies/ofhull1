@@ -1,0 +1,22 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+# Make 3D mesh in slab of cells.
+#    runApplication blockMesh
+
+#    runApplication snappyHexMesh -overwrite
+
+# Generate free surface and run the transient case
+    restore0Dir
+
+    runApplication setFields
+
+    runApplication decomposePar
+
+    runParallel $(getApplication)
+
+    runApplication reconstructPar
+
+#------------------------------------------------------------------------------
