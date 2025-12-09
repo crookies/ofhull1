@@ -8,9 +8,7 @@ cd "${0%/*}" || exit                                # Run from this directory
 
    runApplication surfaceFeatureExtract || { echo "Error running surfaceFeatureExtract"; exit 1; }
 
-   runApplication decomposePar || { echo "Error running decomposePar"; exit 1; }
    runApplication snappyHexMesh -overwrite || { echo "Error running snappyHexMesh"; exit 1; }
-   runApplication reconstructPar || { echo "Error running reconstructPar"; exit 1; }
 
 # Generate free surface and run the transient case
     cp 0/alpha.water.orig 0/alpha.water || { echo "Error copying alpha.water"; exit 1; }
