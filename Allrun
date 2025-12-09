@@ -4,21 +4,23 @@ cd "${0%/*}" || exit                                # Run from this directory
 #------------------------------------------------------------------------------
 
 # Make 3D mesh in slab of cells.
-    runApplication blockMesh
+   runApplication blockMesh || { echo "Error running blockMesh"; exit 1; }
 
-    runApplication surfaceFeatureExtract
+   runApplication surfaceFeatureExtract || { echo "Error running surfaceFeatureExtract"; exit 1; }
 
-    runApplication snappyHexMesh -overwrite
+   runApplication decomposePar || { echo "Error running decomposePar"; exit 1; }
+   runApplication snappyHexMesh -overwrite || { echo "Error running snappyHexMesh"; exit 1; }
+   runApplication reconstructPar || { echo "Error running reconstructPar"; exit 1; }
 
 # Generate free surface and run the transient case
-    cp 0/alpha.water.orig 0/alpha.water
+    cp 0/alpha.water.orig 0/alpha.water || { echo "Error copying alpha.water"; exit 1; }
 
-    runApplication setFields
+    runApplication setFields || { echo "Error running setFields"; exit 1; }
 
-    runApplication decomposePar
+    runApplication decomposePar || { echo "Error running decomposePar"; exit 1; }
 
-    runParallel interFoam
+    runParallel interFoam || { echo "Error running interFoam"; exit 1; }
 
-    runApplication reconstructPar
+    runApplication reconstructPar || { echo "Error running reconstructPar"; exit 1; }
 
 #------------------------------------------------------------------------------

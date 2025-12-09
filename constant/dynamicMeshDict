@@ -15,67 +15,37 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 dynamicFvMesh   dynamicMotionSolverFvMesh;
-
 motionSolverLibs (rigidBodyMeshMotion);
-
 motionSolver    rigidBodyMotion;
 
-report          on;
-
-/*
-// How often to refine
-refineInterval	1;
-
-// Field to be refined
-field		alpha.water;
-
-// Refine field inbetween lower..upper
-lowerRefineLevel	0.001;
-upperRefineLevel	0.999;
-
-// If value < unrefineLevel unrefine
-unrefineLevel	10;
-
-// Have slower than 2:1 refinement
-nBufferLayers	1;
-
-// Refine cells only up to maxRefinement levels
-maxRefinement	3;
-
-// Stop refinement if maxCells reached
-maxCells	200000;
-
-// Flux field and corresponding velocity field. Fluxes on changed
-// faces get recalculated by interpolating the velocity. Use 'none'
-// on surfaceScalarFields that do not need to be reinterpolated.
-correctFluxes
-(
-    (phi none)
-    (nHatf none)
-    (rhoPhi none)
-    (alphaPhi0.water none)
-    (ghf none)
-    (alphaPhiUn none)
-);
-
-// Write the refinement level as a volScalarField
-dumpLevel	true;
-
+/* Dynamic mesh
+dynamicFvMesh   staticFvMesh;
 */
+
+report          on;
 
 solver
 {
     type Newmark;
 }
 
+/*
 accelerationRelaxation table
 			(
 			(0	0)
-			(10	0)
-			(20	0.15)
-			(50	0.3)
+			(40	0)
+			(60	0.15)
+			(80	0.3)
 			(100	0.3)
 			);
+*/
+accelerationRelaxation table
+(
+    (0  0)
+    (36 0)      // Start at 0
+    (56 0.4)    // Ramp gently to 0.4 over 20 seconds
+    (100 0.4)   // Hold at 0.4 (enough to move, low enough to be stable)
+);
 
 bodies
 {
@@ -110,6 +80,7 @@ bodies
     }
 }
 
+/* Not used by by rigidBodyMotion solver, but kept for reference
 constraints
 {
     zAxis
@@ -124,6 +95,7 @@ constraints
         axis          (0 1 0);
     }
 }
+*/
 
 restraints
 {
@@ -131,14 +103,18 @@ restraints
     {
         type linearDamper;
         body Carena;
-        coeff 8596;
+//        coeff 8596;  original
+//        coeff 106680;
+        coeff 10668;  // divide by 10 for stability
     }
 
     rotationDamper
     {
         type sphericalAngularDamper;
         body Carena;
-        coeff 11586;
+//        coeff 11586;  original
+//        coeff 1290628;
+        coeff 129062;  // divide by 10 for stability
     }
 }
 

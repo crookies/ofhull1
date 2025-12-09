@@ -92,8 +92,39 @@ PIMPLE
     nCorrectors      3;
     nNonOrthogonalCorrectors 1;
 
-    correctPhi      yes;
-    moveMeshOuterCorrectors yes;
+    residualControl
+    {
+        p_rgh
+        {
+            tolerance 1e-4;
+            relTol    0;
+        }
+        
+        U
+        {
+            tolerance 1e-4;
+            relTol    0;
+        }
+        
+        alpha.water
+        {
+            tolerance 1e-4;
+            relTol    0;
+        }
+    }
+
+
+   correctPhi      yes;     //When using dynamic mesh
+    /*
+    moveMeshOuterCorrectors yes (Tight Coupling): Very stable for floating bodies, but forces you to run a fixed number of iterations (no residualControl).
+    moveMeshOuterCorrectors no (Loose Coupling): Allows residualControl (faster), but the mesh only moves once per time step. This is slightly less stable, but usually fine if your maxCo is small (e.g., < 0.5).
+    */
+   moveMeshOuterCorrectors no;
+
+/*
+    correctPhi      no;     //When not using dynamic mesh
+    moveMeshOuterCorrectors no;   //When not using dynamic mesh
+*/    
     turbOnFinalIterOnly yes;
 }
 
