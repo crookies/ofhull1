@@ -1,0 +1,21 @@
+set title 'Output forces OpenFOAM'            # Show the title
+set xlabel 'Time (s)'                   # x-axis legend
+set ylabel 'Force (N)'               # y-axis legend
+
+set key bottom right                   # Data legend
+
+set grid                            # Show a grid
+
+# To set data display ranges
+#set autoscale                       # By default, gnuplot autoscales the range
+set xrange [0:100]
+set yrange [-6000:0]
+
+# You can determine where to place marks on each axis
+set xtics (10, 20, 30, 40, 50, 60, 70, 80, 90)
+set ytics (-1000, -2000, -3000, -4000, -5000)
+#set xtic auto                       # Automatic configuration in x-axis
+
+plot "force.dat" using 1:2 with lines lt rgb "red" lw 2 title "Total x-force" ,\
+     "force.dat" using 1:5 with lines lt rgb "blue" lw 2 title "Normal x-force" ,\
+     "force.dat" using 1:8 with lines lt rgb "green" lw 2 title "Viscous x-force" 
