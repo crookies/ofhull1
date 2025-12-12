@@ -15,6 +15,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "initialConditions"
+
 application     interFoam;
 
 startFrom       latestTime;
@@ -23,9 +25,9 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         100;
+endTime         $endTimeSim;
 
-deltaT          0.0001;
+deltaT          $deltaTime;
 
 writeControl    adjustableRunTime;
 
@@ -45,9 +47,9 @@ runTimeModifiable yes;
 
 adjustTimeStep  yes;
 
-maxCo           0.5;
-maxAlphaCo      0.5;
-maxDeltaT       0.022;  // (L/U) * 200
+maxCo           $maxCo;
+maxAlphaCo      $maxAlphaCo;
+maxDeltaT       $maxDeltaT;  // (L/U) * 200
  
 functions
 {
@@ -60,8 +62,8 @@ functions
 	UName U;
 	log true;
 	rhoName rho;
-	rhoInf 1025; // Reference density, fluid
-	CofR (5.87 0 0.5); // Origin for moment calculations
+	rhoInf $rhof; // Reference density, fluid
+	CofR ($CoGx 0 $CoGz); // Origin for moment calculations
 	writeControl timeStep;
 	writeInterval 1;
 	}

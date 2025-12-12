@@ -16,28 +16,30 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/initialConditions"
+
 dimensions      [0 0 -1 0 0 0 0];
 
-internalField   uniform 200;
+internalField   uniform $omegak;
 
 boundaryField
 {
     atmosphere
     {
         type            inletOutlet;
-        inletValue      uniform 200;
-        value           uniform 200;
+        inletValue      uniform $omegak;
+        value           uniform $omegak;
     }
     inlet
     {
         type            fixedValue;
-        value           uniform 200;
+        value           uniform $omegak;
     }
     outlet
     {
         type            inletOutlet;
-        inletValue      uniform 200;
-        value           uniform 200vvvvvvvv;
+        inletValue      uniform $omegak;
+        value           uniform $omegak;
     }
     Sym_bottom
     {
@@ -58,7 +60,7 @@ boundaryField
         kappa           0.41;
         E               9.8;
         beta1           0.075;
-        value           uniform 200;
+        value           uniform $omegak;
     }
 }
 

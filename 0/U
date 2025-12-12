@@ -16,9 +16,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/initialConditions"
+
 dimensions      [0 1 -1 0 0 0 0];
 
-internalField   uniform (-3.784 0 0);
+internalField   uniform (-$U 0 0);
 
 boundaryField
 {
@@ -31,15 +33,15 @@ boundaryField
     inlet
     {
         type            fixedValue;
-        value           uniform (-3.784 0 0);
+        value           uniform (-$U 0 0);
     }
     
     outlet
     {
         type            outletPhaseMeanVelocity;
-        Umean           3.784;
+        Umean           $U;
         alpha           alpha.water;
-        value           uniform (-3.784 0 0);
+        value           uniform (-$U 0 0);
     }
     Sym_bottom
     {

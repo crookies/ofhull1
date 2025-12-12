@@ -1,12 +1,22 @@
 #!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
 
-rm -r [1-9]*
-rm -r 0.[0-9]*
-rm -r processor*
-rm -r postProcessing
+rm -fr [1-9]*
+rm -fr 0.[0-9]*
+rm -fr processor*
+rm -fr postProcessing
 
-rm -r ./0/polyMesh/
-rm -r ./constant/polyMesh/
+rm -rf 0/cellLevel
+rm -rf 0/nSurfaceLayers
+rm -rf 0/pointLevel
+rm -rf 0/thickness
+rm -rf 0/thicknessFraction
+rm -rf 0/alpha.water
+
+rm -fr ./0/polyMesh/
+rm -fr ./constant/polyMesh/
 
 foamCleanPolyMesh
 

@@ -14,6 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/initialConditions"
+
 dynamicFvMesh   dynamicMotionSolverFvMesh;
 motionSolverLibs (rigidBodyMeshMotion);
 motionSolver    rigidBodyMotion;
@@ -55,10 +57,10 @@ bodies
         parent          root;
 
         centreOfMass    (0 0 0);
-        mass            14525;
-        inertia         (40 0 0 262400 0 262400);
+        mass            $mass;
+        inertia         ($Ixx 0 0 $Iyy 0 $Izz);
         
-        transform       (1 0 0 0 1 0 0 0 1) (5.37 0 0.5);
+        transform       (1 0 0 0 1 0 0 0 1) ($CoGx 0 $CoGz);
 
         joint
         {
@@ -103,18 +105,14 @@ restraints
     {
         type linearDamper;
         body Carena;
-//        coeff 8596;  original
-//        coeff 106680;
-        coeff 10668;  // divide by 10 for stability
+        coeff $linearDampingCoef;  
     }
 
     rotationDamper
     {
         type sphericalAngularDamper;
         body Carena;
-//        coeff 11586;  original
-//        coeff 1290628;
-        coeff 129062;  // divide by 10 for stability
+        coeff $angularDampingCoef;  
     }
 }
 

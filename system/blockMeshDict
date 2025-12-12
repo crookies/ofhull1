@@ -14,34 +14,28 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "initialConditions"
+
 scale 1.0;
 
-// Variables
-
-L1 42.5;
-L2 -93.5;
-B1 52.5;
-B2 0;
-D1 -52.5;
-D2 26.25;
 
 vertices
 (
-    	($L2 0 $D1)
-	($L1 0 $D1) 
-	($L1 $B1 $D1)
-	($L2 $B1 $D1)
+   	($XMin 0 $ZMin)
+	($XMax 0 $ZMin) 
+	($XMax $YMax $ZMin)
+	($XMin $YMax $ZMin)
 
-	( $L2 $B2  $D2)    	 
-    	( $L1 $B2  $D2) 
-	( $L1  $B1  $D2)
-	( $L2  $B1  $D2)
+	( $XMin $YMin  $ZMax)    	 
+   	( $XMax $YMin  $ZMax) 
+	( $XMax  $YMax  $ZMax)
+	( $XMin  $YMax  $ZMax)
 
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) (32 24 18) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) ($Nx $Ny $Nz) simpleGrading (1 1 1)
 );
 
 edges

@@ -16,22 +16,24 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+#include "../system/initialConditions"
+
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0.0025;
+internalField   uniform $knun;
 
 boundaryField
 {
     atmosphere
     {
         type            inletOutlet;
-        inletValue      uniform 0.0025;
-        value           uniform 0.0025;
+        inletValue      uniform $knun;
+        value           uniform $knun;
     }
     inlet
     {
         type            fixedValue;
-        value           uniform 0.0025;
+        value           uniform $knun;
     }
     outlet
     {
