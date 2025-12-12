@@ -44,8 +44,8 @@ accelerationRelaxation table
 accelerationRelaxation table
 (
     (0  0)
-    (36 0)      // Start at 0
-    (56 0.4)    // Ramp gently to 0.4 over 20 seconds
+    (20 0)      // Start at 0
+    (40 0.4)    // Ramp gently to 0.4 over 20 seconds
     (100 0.4)   // Hold at 0.4 (enough to move, low enough to be stable)
 );
 
