@@ -35,9 +35,11 @@ writeInterval   1;
 
 purgeWrite      0;
 
-writeFormat     ascii; //binary;
+writeFormat     binary;  //ascii or binary
 
 writePrecision  6;
+
+//fileHandler     uncollated;    // Critical for ParaView live refresh
 
 timeFormat      general;
 

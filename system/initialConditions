@@ -3,7 +3,7 @@ Bwl 4.62;                   //Beam at waterline
 B 4.8;                      //Beam = Maximum Breadth  
 H 2.968;                    //Height from keel to deck 
 T 1.01;                     //Draft
-U 3.874;                    //Velocity in m / s
+U 3.758;                    //Velocity in m/s (7.305 knots)
 
 rhof 1025;
 nuf 1.0034e-06;
@@ -14,14 +14,14 @@ gravity 9.81;
 nProcess 4;                   //Number of processors for decomposition
 max_c 1800000;                //Maximum number of cells after refinement
 
-mass 14525.0;
+mass 14525.0;                 // Half model mass in kg
 CoGx 5.87;                     //Center of Gravity location X from bow
 CoGz 0.5;                      //Center of Gravity location Z from waterline
 Ixx 78000.0;                   // $mass * (0.4 * $B)^2
 Iyy 262357.8125;               // $mass * (0.25 * $Lpp)^2
 Izz 262357.8125;               // +/- same as Iyy
 GML 31;                        // Longitudinal Metacentric Height in m
-Awp 54.25;                     //Waterplane area in m2
+Awp 27.125;                    // Waterplane area in m2 (Half hull: 54.25 / 2)
 
 
 endTimeSim   100;               //Simulation end time
