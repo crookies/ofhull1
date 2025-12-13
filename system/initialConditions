@@ -1,18 +1,12 @@
+/* 
+//  Carena model parameters 
+//
 Lpp 17;                     //Length between perpendiculars
 Bwl 4.62;                   //Beam at waterline
 B 4.8;                      //Beam = Maximum Breadth  
 H 2.968;                    //Height from keel to deck 
 T 1.01;                     //Draft
 U 3.758;                    //Velocity in m/s (7.305 knots)
-
-rhof 1025;
-nuf 1.0034e-06;
-knun 0.01;
-omegak 10;
-gravity 9.81;
-
-nProcess 4;                   //Number of processors for decomposition
-max_c 1800000;                //Maximum number of cells after refinement
 
 mass 14525.0;                 // Half model mass in kg
 CoGx 5.87;                     //Center of Gravity location X from bow
@@ -22,6 +16,40 @@ Iyy 262357.8125;               // $mass * (0.25 * $Lpp)^2
 Izz 262357.8125;               // +/- same as Iyy
 GML 31;                        // Longitudinal Metacentric Height in m
 Awp 27.125;                    // Waterplane area in m2 (Half hull: 54.25 / 2)
+
+*/
+
+
+//  crldl1 model parameters 
+//
+Lpp 6;                      //Length between perpendiculars
+Bwl 4.62;                   //Beam at waterline
+B 1.582;                    //Beam = Maximum Breadth  
+H 0.878;                    //Height from keel to deck 
+T 0.258;                     //Draft
+U 5.14;                     //Velocity in m/s (10 knots)
+
+mass 254.0;                 // Half model mass in kg
+bRefCoGz 0.210;                 //Center of Gravity location Z from bottom of hull
+CoGx 2.988;                     //Center of Gravity location X from bow
+
+Ixx 101.0;                   // $mass * (0.4 * $B)^2
+Iyy 571.5;               // $mass * (0.25 * $Lpp)^2
+Izz 571.5;               // +/- same as Iyy
+GML 19.112;                        // Longitudinal Metacentric Height in m
+Awp 2.63;                    // Waterplane area in m2 (Half hull: 54.25 / 2)
+
+
+CoGz  #calc"( $bRefCoGz - $T)";                      //Center of Gravity location Z from waterline
+rhof 1025;
+nuf 1.0034e-06;
+knun 0.01;
+omegak 10;
+gravity 9.81;
+
+nProcess 4;                   //Number of processors for decomposition
+max_c 1800000;                //Maximum number of cells after refinement
+
 
 
 endTimeSim   100;               //Simulation end time
@@ -97,24 +125,24 @@ l5 #calc"1.871 * $Lpp";
 l6 #calc"-1.871 * $Lpp";
 b5 #calc"4.9583 * $HB";
 b6 #calc"-$b5";
-z5 #calc"0.9828 * $H";
-z6 #calc"-1.1826 * $H";
+z5 #calc"2 * $H";
+z6 #calc"-2 * $H";
 
 //Box2 refinement
 l7 #calc"1.496 * $Lpp";
 l8 #calc"-0.879 * $Lpp";
 b7 #calc"3.5417 * $HB";
 b8 #calc"-$b7";
-z7 #calc"0.7210 * $H";
-z8 #calc"-0.8659 * $H";
+z7 #calc"1 * $H";
+z8 #calc"-1 * $H";
 
 //Box3 refinement
 l9 #calc"1.2 * $Lpp";
 l10 #calc"-0.25 * $Lpp";
 b9 #calc"2.125 * $HB";
 b10 #calc"-$b9";
-z9 #calc"0.475 * $H";
-z10 #calc"-0.5728 * $H";
+z9 #calc"0.6 * $H";
+z10 #calc"-0.6 * $H";
 
 
 // Mesh selection

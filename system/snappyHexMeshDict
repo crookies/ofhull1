@@ -17,6 +17,11 @@ FoamFile
 #include "initialConditions"
 
 
+/*
+castellatedMesh true;
+snap            true;
+addLayers       true;
+*/
 castellatedMesh true;
 snap            true;
 addLayers       true;
@@ -29,7 +34,7 @@ addLayers       true;
 // - to 'snap' the mesh boundary to the surface
 geometry
 {
-     Carena.stl  
+     sink_hull.stl  
      {
         type triSurfaceMesh;
         name Carena;
@@ -131,7 +136,7 @@ castellatedMeshControls
     features
     (
          {
-             file "Carena.eMesh";
+             file "sink_hull.eMesh";
              level 4;
          }
     );
@@ -156,7 +161,7 @@ castellatedMeshControls
         }
     }
 
-    resolveFeatureAngle 60;
+    resolveFeatureAngle 60;     //
 
 
     // Region-wise refinement
@@ -174,6 +179,23 @@ castellatedMeshControls
 
     refinementRegions
     {
+        // If freeSurfaceBox3 is enabled box levels should go from 2 to 4
+        box1
+        {
+            mode inside;
+            levels ((1e13 2));
+        }
+        box2
+        {
+            mode inside;
+            levels ((1e13 3));
+        }
+        box3
+        {
+            mode inside;
+            levels ((1e13 4));
+        }
+
          freeSurfaceBox0
          {
              mode inside;
@@ -189,6 +211,7 @@ castellatedMeshControls
              mode inside;
              levels ((1e15 3));
          }
+            
 /*
          freeSurfaceBox3
          {
@@ -196,22 +219,6 @@ castellatedMeshControls
              levels ((1e15 4));
          }
 */
-        // If freeSurfaceBox3 is enabled box levels should go from 2 to 4
-        box1
-        {
-            mode inside;
-            levels ((1e13 1));
-        }
-        box2
-        {
-            mode inside;
-            levels ((1e13 2));
-        }
-        box3
-        {
-            mode inside;
-            levels ((1e13 3));
-        }
     }
 
 
@@ -251,13 +258,13 @@ snapControls
 
     //- Maximum number of snapping relaxation iterations. Should stop
     //  before upon reaching a correct mesh.
-	nRelaxIter 10;
+	nRelaxIter 20;     //switched for 10 to 30 to improve mesh boundary precision
 
 	// Feature snapping
 
         // Number of feature edge snapping iterations.
         // Leave out altogether to disable.
-	nFeatureSnapIter 10;
+	nFeatureSnapIter 20;   //switched for 10 to 30 to improve mesh boundary precision
 
         // Detect (geometric only) features by sampling the surface
         // (default=false).
@@ -284,12 +291,12 @@ addLayersControls
     {
         Carena
         {
-            nSurfaceLayers 10;
+            nSurfaceLayers 5;
         }
     }
 
     // Expansion factor for layer mesh
-    expansionRatio 1.15;
+    expansionRatio 1.2;
 
 
     // Wanted thickness of final added cell layer. If multiple layers
@@ -306,14 +313,14 @@ addLayersControls
     // also not grown. This helps convergence of the layer addition process
     // close to features.
     // Note: changed(corrected) w.r.t 17x! (didn't do anything in 17x)
-    nGrow 0;
+    nGrow 1;
 
 
     // Advanced settings
 
     // When not to extrude surface. 0 is flat surface, 90 is when two faces
     // are perpendicular
-    featureAngle 180;
+    featureAngle 60;
     // Specified to be consistent with v1712 settings (see 1806 release notes)
     mergePatchFacesAngle 60;    // featureAngle
     layerTerminationAngle 30;   // 0.5*featureAngle
@@ -321,10 +328,10 @@ addLayersControls
 
     // Maximum number of snapping relaxation iterations. Should stop
     // before upon reaching a correct mesh.
-    nRelaxIter 5;
+    nRelaxIter 20;
 
     // Number of smoothing iterations of surface normals
-    nSmoothSurfaceNormals 2;
+    nSmoothSurfaceNormals 10;
 
     // Number of smoothing iterations of interior mesh movement direction
     nSmoothNormals 3;
