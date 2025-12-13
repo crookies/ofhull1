@@ -2,7 +2,6 @@
 //  Carena model parameters 
 //
 Lpp 17;                     //Length between perpendiculars
-Bwl 4.62;                   //Beam at waterline
 B 4.8;                      //Beam = Maximum Breadth  
 H 2.968;                    //Height from keel to deck 
 T 1.01;                     //Draft
@@ -23,7 +22,6 @@ Awp 27.125;                    // Waterplane area in m2 (Half hull: 54.25 / 2)
 //  crldl1 model parameters 
 //
 Lpp 6;                      //Length between perpendiculars
-Bwl 4.62;                   //Beam at waterline
 B 1.582;                    //Beam = Maximum Breadth  
 H 0.878;                    //Height from keel to deck 
 T 0.258;                     //Draft
